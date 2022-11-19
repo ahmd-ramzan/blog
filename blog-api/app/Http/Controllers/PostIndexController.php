@@ -10,6 +10,6 @@ class PostIndexController extends Controller
 {
     public function __invoke()
     {
-        return PostResource::collection(Post::get());
+        return PostResource::collection(Post::where('published', 1)->get());
     }
 }
