@@ -14,12 +14,9 @@
 <script>
 import { onMounted } from 'vue'
 import usePosts from "../api/usePosts"
-import {useAppStore} from "../store/app"
 
 export default {
   setup() {
-    const appStore = useAppStore()
-    console.log(appStore)
     const { posts, fetchPosts } = usePosts()
 
     onMounted(fetchPosts)
