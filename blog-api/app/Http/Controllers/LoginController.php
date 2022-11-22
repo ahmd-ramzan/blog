@@ -15,11 +15,11 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        $credentials = $validator->validated();
-
         if ($validator->fails()) {
             return response()->json(['status' => 0, 'errors' => $validator->errors()]);
         }
+
+        $credentials = $validator->validated();
 
         if (Auth::attempt($credentials)) {
             $token = $request->user()->createToken('auth');
@@ -27,6 +27,6 @@ class LoginController extends Controller
             return response()->json(['status' => 1, 'token' => $token->plainTextToken]);
         }
 
-        return response()->json(['status' => 0, 'message' => 'Invalid Credentials']);
+        return response()->json(['status' => 2, 'message' => 'Invalid Credentials']);
     }
 }

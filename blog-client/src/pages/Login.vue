@@ -6,12 +6,21 @@
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
           <div class="mt-1">
             <input v-model="form.email" type="text" name="email" id="email" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com">
+            <p v-if="appStore.loginErrors.email" class="mt-2 text-sm text-red-600">
+              {{ appStore.loginErrors.email[0] }}
+            </p>
+            <p v-if="appStore.invalidCredentialsError" class="mt-2 text-sm text-red-600">
+              {{ appStore.invalidCredentialsError }}
+            </p>
           </div>
         </div>
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
           <div class="mt-1">
             <input v-model="form.password" type="password" name="password" id="password" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+            <p v-if="appStore.loginErrors.password" class="mt-2 text-sm text-red-600">
+              {{ appStore.loginErrors.password[0] }}
+            </p>
           </div>
         </div>
       </div>
@@ -40,7 +49,8 @@ export default {
     }
     return {
       attemptLogin,
-      form
+      form,
+      appStore
     }
   }
 }

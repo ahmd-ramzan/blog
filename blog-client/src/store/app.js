@@ -5,7 +5,9 @@ export const useAppStore = defineStore('app', {
     state: () => {
         return {
             authenticated: false,
-            user: null
+            user: null,
+            loginErrors : {},
+            invalidCredentialsError: ''
         }
     },
     actions: {
@@ -26,6 +28,13 @@ export const useAppStore = defineStore('app', {
             let {data} = await axios.post('/api/login', credentials)
             if (data.status === 1) {
                 await this.authenticate(data.token.split('|')[1])
+            }
+            if (data.status === 0) {
+                this.loginErrors = data.errors
+            }
+            if (data.status === 2) {
+                this.loginErrors = {}
+                this.invalidCredentialsError = data.message
             }
         }
     }
