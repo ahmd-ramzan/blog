@@ -35,17 +35,21 @@
 <script>
 import {useAppStore} from "../store/app";
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   setup () {
     const appStore = useAppStore()
+    const router = useRouter()
 
     const form = reactive({
       email: '',
       password: ''
     })
-    const attemptLogin = () => {
-      appStore.login(form)
+    const attemptLogin = async () => {
+      const loginResponse = await appStore.login(form)
+      console.log(loginResponse, 'ff')
+      if (loginResponse === 1) router.replace({name: 'admin.posts'})
     }
     return {
       attemptLogin,
