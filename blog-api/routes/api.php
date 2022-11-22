@@ -25,3 +25,5 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/posts', PostIndexController::class);
 Route::get('/posts/{post:slug}', PostShowController::class);
+
+Route::get('/admin/posts', \App\Http\Controllers\Admin\PostIndexController::class);
