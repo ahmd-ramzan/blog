@@ -4,7 +4,7 @@ import axios from "axios"
 export const useAppStore = defineStore('app', {
     state: () => {
         return {
-            authenticated: false,
+            authenticated: true,
             user: null,
             loginErrors : {},
             invalidCredentialsError: ''

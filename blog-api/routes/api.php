@@ -27,3 +27,4 @@ Route::get('/posts', PostIndexController::class);
 Route::get('/posts/{post:slug}', PostShowController::class);
 
 Route::get('/admin/posts', \App\Http\Controllers\Admin\PostIndexController::class);
+Route::post('/admin/posts', \App\Http\Controllers\Admin\PostStoreController::class);

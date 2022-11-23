@@ -48,7 +48,6 @@ export default {
     })
     const attemptLogin = async () => {
       const loginResponse = await appStore.login(form)
-      console.log(loginResponse, 'ff')
       if (loginResponse === 1) router.replace({name: 'admin.posts'})
     }
     return {
