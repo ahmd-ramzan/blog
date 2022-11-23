@@ -27,6 +27,7 @@ const routes = [
     {
         path: '/admin/posts/:slug/edit',
         name: 'admin.posts.edit',
+        props: true,
         component: Edit,
         beforeEnter: (to, from, next) => {
             let appStore = useAppStore()
