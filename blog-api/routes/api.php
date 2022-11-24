@@ -29,3 +29,4 @@ Route::get('/posts/{post:slug}', PostShowController::class);
 Route::get('/admin/posts', \App\Http\Controllers\Admin\PostIndexController::class);
 Route::post('/admin/posts', \App\Http\Controllers\Admin\PostStoreController::class);
 Route::get('/admin/posts/{post:slug}/edit', \App\Http\Controllers\Admin\PostEditController::class);
+Route::patch('/admin/posts/{post:uuid}', \App\Http\Controllers\Admin\PostPatchController::class);

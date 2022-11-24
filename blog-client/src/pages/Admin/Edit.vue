@@ -17,7 +17,7 @@ export default {
     }
   },
   setup(props) {
-    const {post, fetchPost} = useAdminPosts()
+    const {post, fetchPost, patchPost } = useAdminPosts()
 
     onMounted(async () => await fetchPost(props.slug))
 
@@ -26,8 +26,8 @@ export default {
         }, 500),
         { deep: true })
 
-    const updatePost = () => {
-      console.log(`update happens`)
+    const updatePost = async () => {
+      await patchPost(props.slug)
     }
 
     return {
