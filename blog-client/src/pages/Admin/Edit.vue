@@ -2,7 +2,7 @@
   <div>
     <div class="absolute w-full left-0 top-0 p-6 flex justify-between items-center space-x-6">
       <div class="flex-grow flex items-center">
-        <span class="mr-1">/</span> <input v-model="post.slug" type="text" class="p-0 border-none focus:ring-0 w-full">
+        <span class="mr-1">/</span> <input v-model="post.slug" type="text" class="p-0 border-none focus:ring-0 w-full" spellcheck="false" @click="$event.target.select()">
       </div>
       <div class="flex items-center space-x-6">
         <div>
@@ -22,8 +22,9 @@
 
 <script>
 import useAdminPosts from "../../api/useAdminPosts";
-import {onMounted, watch} from "vue";
+import {onMounted, watch, watchEffect} from "vue";
 import _ from 'lodash'
+import slugify from 'slugify'
 import ResizeTextArea from "../../components/ResizeTextArea.vue";
 
 export default {
@@ -39,11 +40,20 @@ export default {
 
     onMounted(async () => await fetchPost(props.uuid))
 
+    const replaceSlug = () => {
+      const slug = post.value.slug
+      if (slug.charAt(slug.length - 1) === ' ') {
+        return
+      }
+      post.value.slug = slug ? slugify(slug, {strict: true}) : post.value.uuid
+    }
+    watchEffect(() => {
+      if (post.value.slug) replaceSlug()
+    })
     watch(() => post, _.debounce(() => {
           updatePost()
         }, 500),
-        { deep: true })
-
+        {deep: true})
     const updatePost = async () => {
       await patchPost(props.uuid)
     }
