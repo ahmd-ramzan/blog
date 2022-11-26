@@ -9,7 +9,7 @@
           <span class="text-sm text-gray-500">Autosaved</span>
         </div>
         <button class="text-sm font-medium">Published</button>
-<!--        <router-link :to="{name: 'post', params: {slug: post.slug}}" class="text-sm font-medium text-gray-800">Preview</router-link>-->
+        <router-link v-if="post.slug" :to="{name: 'post', params: {slug: post.slug}}" class="text-sm font-medium text-gray-800">Preview</router-link>
       </div>
     </div>
     <ResizeTextArea v-if="post.title">
