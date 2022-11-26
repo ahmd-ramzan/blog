@@ -29,7 +29,7 @@ import ResizeTextArea from "../../components/ResizeTextArea.vue";
 export default {
   components: { ResizeTextArea },
   props: {
-    slug: {
+    uuid: {
       required: true,
       type: String,
     }
@@ -37,7 +37,7 @@ export default {
   setup(props) {
     const {post, fetchPost, patchPost } = useAdminPosts()
 
-    onMounted(async () => await fetchPost(props.slug))
+    onMounted(async () => await fetchPost(props.uuid))
 
     watch(() => post, _.debounce(() => {
           updatePost()
@@ -45,7 +45,7 @@ export default {
         { deep: true })
 
     const updatePost = async () => {
-      await patchPost(props.slug)
+      await patchPost(props.uuid)
     }
 
     return {

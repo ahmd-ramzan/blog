@@ -25,7 +25,7 @@ const routes = [
         }
     },
     {
-        path: '/admin/posts/:slug/edit',
+        path: '/admin/posts/:uuid/edit',
         name: 'admin.posts.edit',
         props: true,
         component: Edit,
