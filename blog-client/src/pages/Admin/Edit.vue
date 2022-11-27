@@ -5,9 +5,11 @@
         <span class="mr-1">/</span> <input v-model="post.slug" type="text" class="p-0 border-none focus:ring-0 w-full" spellcheck="false" @click="$event.target.select()">
       </div>
       <div class="flex items-center space-x-6">
-        <div>
-          <span class="text-sm text-gray-500">Autosaved</span>
-        </div>
+        <RelativeTime :date="lastSaved" v-if="lastSaved">
+          <template v-slot:default="{ fromNow }">
+            <span class="text-sm text-gray-500">{{ fromNow }}</span>
+          </template>
+        </RelativeTime>
         <button @click="post.published = ! post.published" class="text-sm font-medium" :class="{ 'text-pink-500': post.published }">{{ !post.published ? 'Publish' : 'Unpublish'}}</button>
         <router-link v-if="post.slug" :to="{name: 'post', params: {slug: post.slug}}" class="text-sm font-medium text-gray-800">Preview</router-link>
       </div>
@@ -23,14 +25,16 @@
 
 <script>
 import useAdminPosts from "../../api/useAdminPosts";
-import {onMounted, watch, watchEffect} from "vue";
+import {onMounted, watch, watchEffect, ref} from "vue";
 import _ from 'lodash'
 import slugify from 'slugify'
 import ResizeTextArea from "../../components/ResizeTextArea.vue";
 import Editor from "../../components/Editor.vue";
+import dayjs from 'dayjs'
+import RelativeTime from "../../components/RelativeTime.vue";
 
 export default {
-  components: {Editor, ResizeTextArea },
+  components: {RelativeTime, Editor, ResizeTextArea },
   props: {
     uuid: {
       required: true,
@@ -39,6 +43,7 @@ export default {
   },
   setup(props) {
     const {post, fetchPost, patchPost } = useAdminPosts()
+    const lastSaved = dayjs()
 
     onMounted(async () => await fetchPost(props.uuid))
 
@@ -58,10 +63,11 @@ export default {
         {deep: true})
     const updatePost = async () => {
       await patchPost(props.uuid)
+      lastSaved.value = dayjs()
     }
 
     return {
-      post
+      post, lastSaved
     }
   }
 }
