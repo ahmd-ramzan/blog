@@ -41,7 +41,7 @@ import { useRouter } from 'vue-router'
      const newPost = async () => {
        let post = await createPost()
 
-       router.replace({name: 'admin.posts.edit', params: {slug: post.slug}})
+       router.push({name: 'admin.posts.edit', params: {uuid: post.uuid}})
      }
 
      return {
