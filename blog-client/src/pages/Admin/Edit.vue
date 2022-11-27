@@ -17,7 +17,7 @@
         <textarea :ref="el" v-model="post.title" v-on:input="resize" class="w-full text-center text-4xl lg:text-6xl leading-10 font-extrabold tracking-tight text-gray-900 border-none focus:ring-0 resize-none p-0"></textarea>
       </template>
     </ResizeTextArea>
-    <Editor v-model="post.body" class="mt-16" />
+    <Editor v-model:modelValue="post.body" v-model:teaserValue="post.teaser" class="mt-16" />
   </div>
 </template>
 
