@@ -17,6 +17,7 @@
         <textarea :ref="el" v-model="post.title" v-on:input="resize" class="w-full text-center text-4xl lg:text-6xl leading-10 font-extrabold tracking-tight text-gray-900 border-none focus:ring-0 resize-none p-0"></textarea>
       </template>
     </ResizeTextArea>
+    <Editor v-model="post.body" class="mt-16" />
   </div>
 </template>
 
@@ -26,9 +27,10 @@ import {onMounted, watch, watchEffect} from "vue";
 import _ from 'lodash'
 import slugify from 'slugify'
 import ResizeTextArea from "../../components/ResizeTextArea.vue";
+import Editor from "../../components/Editor.vue";
 
 export default {
-  components: { ResizeTextArea },
+  components: {Editor, ResizeTextArea },
   props: {
     uuid: {
       required: true,
